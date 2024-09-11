@@ -1,0 +1,16 @@
+{
+    "name": "FHFremawork.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:8693cc86203250e4eaf3432f25aad818"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
