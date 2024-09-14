@@ -2,16 +2,14 @@ using UnityEngine;
 
 namespace FHFramework
 {
+    /// <summary>
+    /// ÓÎÏ·Èë¿Ú
+    /// </summary>
     public partial class GameEntry : MonoBehaviour
     {
-        private void Awake()
-        {
-            m_ModuleMap = new();
-        }
-
         private void Start()
         {
-            
+            InitModules();
         }
     }
 }

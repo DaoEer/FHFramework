@@ -1,6 +1,6 @@
 namespace FHFramework
 {
-    public class Log
+    interface IFsm
     {
 
     }

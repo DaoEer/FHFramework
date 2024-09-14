@@ -1,18 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using YooAsset;
 
-public class ResourceModule : MonoBehaviour
+namespace FHFramework
 {
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// ×ÊÔ´Ä£¿é
+    /// </summary>
+    public partial class ResourceModule : FHFrameworkModule
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private void Start()
+        {
+            YooAssets.Initialize();
+        }
     }
 }
