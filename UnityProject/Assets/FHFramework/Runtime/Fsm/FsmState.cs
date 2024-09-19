@@ -2,17 +2,17 @@ namespace FHFramework
 {
     public class FsmState
     {
-        public void Enter()
+        public void OnEnter()
         {
 
         }
 
-        public void Udate()
+        public void OnUpdate()
         {
 
         }
 
-        public void Exit()
+        public void OnExit()
         {
 
         }

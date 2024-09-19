@@ -1,7 +1,0 @@
-namespace FHFramework
-{
-    interface IFsm
-    {
-
-    }
-}
