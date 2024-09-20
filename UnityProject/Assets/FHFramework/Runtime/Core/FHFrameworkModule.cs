@@ -9,14 +9,11 @@ namespace FHFramework
     {
         public virtual int Priority => 0;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             FHFrameworkEntry.RegisterModule(this);
         }
 
-        public virtual void UpdateModule(float elapseSeconds, float realElapseSeconds)
-        {
-
-        }
+        public virtual void UpdateModule(float elapseSeconds, float realElapseSeconds) { }
     }
 }

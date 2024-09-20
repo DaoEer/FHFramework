@@ -7,8 +7,9 @@ namespace FHFramework
     {
         private Dictionary<string, Fsm> m_Fsms;
 
-        private void Start()
+        protected override void Awake()
         {
+            base.Awake();
             m_Fsms = new Dictionary<string, Fsm>();
         }
 
@@ -26,7 +27,12 @@ namespace FHFramework
             return fsm;
         }
 
-        public Fsm Create(string name, List<FsmState> states)
+        public Fsm Create(string name, params FsmState[] states)
+        {
+            return Create(name, states);
+        }
+
+        public Fsm Create(string name, IEnumerable<FsmState> states)
         {
             if (m_Fsms.ContainsKey(name)) return null;
             return Fsm.Create(name, states);

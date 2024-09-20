@@ -1,20 +1,11 @@
 namespace FHFramework
 {
-    public class FsmState
+    public abstract class FsmState
     {
-        public void OnEnter()
-        {
+        public virtual void OnEnter() { }
 
-        }
+        public virtual void OnUpdate() { }
 
-        public void OnUpdate()
-        {
-
-        }
-
-        public void OnExit()
-        {
-
-        }
+        public virtual void OnLeave() { }
     }
 }
