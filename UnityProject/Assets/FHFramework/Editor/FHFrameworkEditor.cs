@@ -1,8 +1,6 @@
-using UnityEditor;
-
 namespace FHFramework
 {
-    public class FHFrameworkEditor : Editor
+    public class FHFrameworkEditor
     {
 
     }

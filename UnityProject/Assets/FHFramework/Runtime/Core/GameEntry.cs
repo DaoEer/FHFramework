@@ -7,9 +7,14 @@ namespace FHFramework
     /// </summary>
     public partial class GameEntry : MonoBehaviour
     {
-        private void Start()
+        private void Awake()
         {
             InitModules();
+        }
+
+        private void Update()
+        {
+            FHFrameworkEntry.Update();
         }
     }
 }
