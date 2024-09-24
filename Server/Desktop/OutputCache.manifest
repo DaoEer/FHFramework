@@ -1,0 +1,10 @@
+ManifestFileVersion: 0
+CRC: 2933964699
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: hotupdate_assets_assets_hotupdate_prefabs.bundle
+      Dependencies: {}
+    Info_1:
+      Name: hotupdate_assets_assets_hotupdate_scenes.bundle
+      Dependencies: {}

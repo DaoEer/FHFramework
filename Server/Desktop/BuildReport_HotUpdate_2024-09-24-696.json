@@ -1,0 +1,124 @@
+{
+    "Summary": {
+        "YooVersion": "2.2.4-preview",
+        "UnityVersion": "2022.3.12f1c1",
+        "BuildDate": "2024/9/24 11:36:21",
+        "BuildSeconds": 10,
+        "BuildTarget": 19,
+        "BuildMode": 0,
+        "BuildPipeline": "BuiltinBuildPipeline",
+        "BuildPackageName": "HotUpdate",
+        "BuildPackageVersion": "2024-09-24-696",
+        "UniqueBundleName": true,
+        "EnableAddressable": false,
+        "LocationToLower": false,
+        "IncludeAssetGUID": false,
+        "AutoCollectShaders": true,
+        "IgnoreRuleName": "YooAsset.Editor.NormalIgnoreRule",
+        "EnableSharePackRule": true,
+        "EncryptionClassName": "null",
+        "FileNameStyle": 0,
+        "CompressOption": 2,
+        "DisableWriteTypeTree": false,
+        "IgnoreTypeTreeChanges": true,
+        "AssetFileTotalCount": 5,
+        "MainAssetTotalCount": 5,
+        "AllBundleTotalCount": 2,
+        "AllBundleTotalSize": 158258,
+        "EncryptedBundleTotalCount": 0,
+        "EncryptedBundleTotalSize": 0
+    },
+    "AssetInfos": [
+        {
+            "Address": "",
+            "AssetPath": "Assets/Assets/HotUpdate/Prefabs/Capsule.prefab",
+            "AssetGUID": "5c30fe6321751e34181afba14c176427",
+            "AssetTags": [
+                "Prefab"
+            ],
+            "MainBundleName": "hotupdate_assets_assets_hotupdate_prefabs.bundle",
+            "MainBundleSize": 45248,
+            "DependAssets": []
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/Assets/HotUpdate/Prefabs/Cube.prefab",
+            "AssetGUID": "c26205af89ecfd041953d4cd2524d1c6",
+            "AssetTags": [
+                "Prefab"
+            ],
+            "MainBundleName": "hotupdate_assets_assets_hotupdate_prefabs.bundle",
+            "MainBundleSize": 45248,
+            "DependAssets": []
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/Assets/HotUpdate/Prefabs/Cylinder.prefab",
+            "AssetGUID": "6fee0d803d1463c4bb3e7c2d9bf67bff",
+            "AssetTags": [
+                "Prefab"
+            ],
+            "MainBundleName": "hotupdate_assets_assets_hotupdate_prefabs.bundle",
+            "MainBundleSize": 45248,
+            "DependAssets": []
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/Assets/HotUpdate/Prefabs/Sphere.prefab",
+            "AssetGUID": "b32fd6d08bda76b4ab873bf0e93f06d4",
+            "AssetTags": [
+                "Prefab"
+            ],
+            "MainBundleName": "hotupdate_assets_assets_hotupdate_prefabs.bundle",
+            "MainBundleSize": 45248,
+            "DependAssets": []
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/Assets/HotUpdate/Scenes/HorfixTest.unity",
+            "AssetGUID": "ac62634ebb32b1b488e5e71c8832369f",
+            "AssetTags": [
+                "Scene"
+            ],
+            "MainBundleName": "hotupdate_assets_assets_hotupdate_scenes.bundle",
+            "MainBundleSize": 113010,
+            "DependAssets": []
+        }
+    ],
+    "BundleInfos": [
+        {
+            "BundleName": "hotupdate_assets_assets_hotupdate_prefabs.bundle",
+            "FileName": "2d134f010ddb26cac1a9a0438882b029.bundle",
+            "FileHash": "2d134f010ddb26cac1a9a0438882b029",
+            "FileCRC": "698200b8",
+            "FileSize": 45248,
+            "Encrypted": false,
+            "Tags": [
+                "Prefab"
+            ],
+            "DependBundles": [],
+            "AllBuiltinAssets": [
+                "Assets/Assets/HotUpdate/Prefabs/Capsule.prefab",
+                "Assets/Assets/HotUpdate/Prefabs/Cube.prefab",
+                "Assets/Assets/HotUpdate/Prefabs/Cylinder.prefab",
+                "Assets/Assets/HotUpdate/Prefabs/Sphere.prefab"
+            ]
+        },
+        {
+            "BundleName": "hotupdate_assets_assets_hotupdate_scenes.bundle",
+            "FileName": "1fdeb55e369f7f0c341d36f409a1c8da.bundle",
+            "FileHash": "1fdeb55e369f7f0c341d36f409a1c8da",
+            "FileCRC": "1e680cee",
+            "FileSize": 113010,
+            "Encrypted": false,
+            "Tags": [
+                "Scene"
+            ],
+            "DependBundles": [],
+            "AllBuiltinAssets": [
+                "Assets/Assets/HotUpdate/Scenes/HorfixTest.unity"
+            ]
+        }
+    ],
+    "IndependAssets": []
+}
