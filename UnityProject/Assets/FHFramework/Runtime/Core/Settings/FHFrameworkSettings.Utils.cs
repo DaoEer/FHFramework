@@ -4,7 +4,7 @@ namespace FHFramework
 {
     public partial class FHFrameworkSettings
     {
-        public const string SettingsPath = "Assets/Resources/FHFrameworkSettings.asset";
+        public const string SettingsPath = "FHFrameworkSettings";
 
         private static FHFrameworkSettings m_FHFrameworkSettings;
 
@@ -14,22 +14,15 @@ namespace FHFramework
             {
                 if (!m_FHFrameworkSettings)
                 {
-                    m_FHFrameworkSettings = GetSingletonAssetsByResources();
+                    m_FHFrameworkSettings = Resources.Load<FHFrameworkSettings>(SettingsPath);
+                    if (!m_FHFrameworkSettings)
+                    {
+                        LogHelper.Log(LogLevel.Error, $"Could not found FHFrameworkSettings asset, so auto create:{SettingsPath}");
+                    }
                 }
 
                 return m_FHFrameworkSettings;
             }
-        }
-
-        private static FHFrameworkSettings GetSingletonAssetsByResources()
-        {
-            FHFrameworkSettings settings = Resources.Load<FHFrameworkSettings>(SettingsPath);
-            if (!settings)
-            {
-                LogHelper.Log(LogLevel.Error, $"Could not found FHFrameworkSettings asset, so auto create:{SettingsPath}");
-            }
-
-            return settings;
         }
     }
 }

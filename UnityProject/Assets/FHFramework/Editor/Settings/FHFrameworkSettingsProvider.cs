@@ -7,7 +7,9 @@ namespace FHFramework
 {
     public class FHFrameworkSettingsProvider : SettingsProvider
     {
+        private const string SettingsPath = "Assets/Resources/" + FHFrameworkSettings.SettingsPath + ".asset";
         private const string HeaderName = "FHFramework/FHFrameworkSettings";
+        private const string PropertyName = "m_FHFrameworkSettings";
         private SerializedObject m_Settings;
 
         public FHFrameworkSettingsProvider(string path, SettingsScope scopes, IEnumerable<string> keywords = null) : base(path, scopes, keywords) { }
@@ -15,17 +17,31 @@ namespace FHFramework
         public override void OnActivate(string searchContext, VisualElement rootElement)
         {
             base.OnActivate(searchContext, rootElement);
-            if (!File.Exists(FHFrameworkSettings.SettingsPath))
-            {
-                LogHelper.Log(LogLevel.Error, $"Open FHFramework Settings error, Please Create FHFrameworkSettings.assets File in Path: {FHFrameworkSettings.SettingsPath}");
-            }
-            
+            m_Settings = new SerializedObject(FHFrameworkSettings.Instance);
         }
 
         public override void OnGUI(string searchContext)
         {
             base.OnGUI(searchContext);
-            EditorGUILayout.PropertyField(m_Settings.FindProperty("m_FHFrameworkSettings"));
+            using EditorGUI.ChangeCheckScope changeCheckScope = new();
+            EditorGUILayout.PropertyField(m_Settings.FindProperty(PropertyName));
+
+            if (!changeCheckScope.changed) return;
+            m_Settings.ApplyModifiedPropertiesWithoutUndo();
+        }
+
+        [SettingsProvider]
+        private static SettingsProvider CreateMySettingsProvider()
+        {
+            if (!File.Exists(SettingsPath))
+            {
+                LogHelper.Log(LogLevel.Error, $"Open FHFramework Settings error, Please Create FHFrameworkSettings.assets File in Path: {SettingsPath}");
+                return null;
+            }
+
+            FHFrameworkSettingsProvider provider = new(HeaderName, SettingsScope.Project);
+            provider.keywords = GetSearchKeywordsFromGUIContentProperties<FHFrameworkSettingsProvider>();
+            return provider;
         }
     }
 }
