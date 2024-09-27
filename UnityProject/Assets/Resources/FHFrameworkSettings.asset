@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 465810e1dfe657145b9c0e38351bb4bc, type: 3}
   m_Name: FHFrameworkSettings
   m_EditorClassIdentifier: 
-  HostServerURL: http://127.0.0.1:8081
-  FallbackHostServerURL: http://127.0.0.1:8081
-  WindowsUpdateDataUrl: http://127.0.0.1
-  MacOSUpdateDataUrl: http://127.0.0.1
-  IOSUpdateDataUrl: http://127.0.0.1
-  AndroidUpdateDataUrl: http://127.0.0.1
-  WebGLUpdateDataUrl: http://127.0.0.1
+  m_GlobalSettings:
+    HostServerURL: http://127.0.0.1:2552
+    FallbackHostServerURL: http://127.0.0.1:2552
+    WindowsUpdateDataUrl: http://127.0.0.1
+    MacOSUpdateDataUrl: http://127.0.0.1
+    IOSUpdateDataUrl: http://127.0.0.1
+    AndroidUpdateDataUrl: http://127.0.0.1
+    WebGLUpdateDataUrl: http://127.0.0.1

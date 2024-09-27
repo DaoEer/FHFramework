@@ -22,14 +22,14 @@ namespace FHFramework
 
             m_Procedures = new()
             {
-                new LaunchProcedure()
+                new InitPackageProcedure()
             };
         }
 
         private void Start()
         {
             m_ProcedureFsm = GameEntry.Fsm.Create("GameProcedure", m_Procedures);
-            m_ProcedureFsm.SwitchState<LaunchProcedure>();
+            m_ProcedureFsm.SwitchState<InitPackageProcedure>();
         }
     }
 }

@@ -9,7 +9,7 @@ namespace FHFramework
     {
         private const string SettingsPath = "Assets/Resources/" + FHFrameworkSettings.SettingsPath + ".asset";
         private const string HeaderName = "FHFramework/FHFrameworkSettings";
-        private const string PropertyName = "m_FHFrameworkSettings";
+        private const string PropertyName = "m_GlobalSettings";
         private SerializedObject m_Settings;
 
         public FHFrameworkSettingsProvider(string path, SettingsScope scopes, IEnumerable<string> keywords = null) : base(path, scopes, keywords) { }

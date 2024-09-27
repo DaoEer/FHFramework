@@ -24,5 +24,7 @@ namespace FHFramework
                 return m_FHFrameworkSettings;
             }
         }
+
+        public static FHFrameworkGlobalSettings GlobalSettings => Instance.m_GlobalSettings;
     }
 }
