@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using YooAsset;
 
 namespace FHFramework
@@ -9,16 +10,14 @@ namespace FHFramework
             LogHelper.Log(LogLevel.Log, "InitPackageProcedure：初始化资源包流程");
         }
 
-        private async void InitPackage()
+        private async UniTask InitPackage()
         {
-#if UNITY_EDITOR
-            SimulateBuildResult simulateBuildResult = EditorSimulateModeHelper.SimulateBuild(EDefaultBuildPipeline.BuiltinBuildPipeline, "DefaultPackage");
-            FileSystemParameters editorFileSystem = FileSystemParameters.CreateDefaultEditorFileSystemParameters(simulateBuildResult);
-            EditorSimulateModeParameters initParameters = new();
-            initParameters.EditorFileSystemParameters = editorFileSystem;
-#else
-
-#endif
+            InitializationOperation initializationOperation = GameEntry.Resource.InitPackage(ResourceModule.DefaultPackageName);
+            await initializationOperation;
+            if (!initializationOperation.Status.Equals(EOperationStatus.Succeed))
+            {
+                LogHelper.Log(LogLevel.Error, initializationOperation.Error);
+            }
         }
     }
 }
