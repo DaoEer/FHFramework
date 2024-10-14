@@ -8,6 +8,14 @@ namespace FHFramework
 
         private Fsm m_ProcedureFsm;
 
+        public Fsm ProcedureFsm
+        {
+            get
+            {
+                return m_ProcedureFsm;
+            }
+        }
+
         public Procedure CurrentProcedure
         {
             get
