@@ -8,7 +8,7 @@ namespace FHFramework
     {
         public override void OnEnter()
         {
-            LogHelper.Log(LogLevel.Log, "InitPackageProcedure：初始化资源包流程");
+            LogHelper.LogInfo("InitPackageProcedure：初始化资源包流程");
 
             InitPackage().Forget();
         }
@@ -58,7 +58,7 @@ namespace FHFramework
             await initializationOperation;
             if (!initializationOperation.Status.Equals(EOperationStatus.Succeed))
             {
-                LogHelper.Log(LogLevel.Error, initializationOperation.Error);
+                LogHelper.LogInfo(initializationOperation.Error);
             }
             else
             {

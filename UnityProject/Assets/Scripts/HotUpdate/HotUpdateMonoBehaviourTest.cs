@@ -15,7 +15,7 @@ public class HotUpdateMonoBehaviourTest : MonoBehaviour
 
     public async void Test()
     {
-        LogHelper.Log(LogLevel.Log, "热更代码加载成功");
+        LogHelper.LogInfo("热更代码加载成功");
         GameObject cube = await GameEntry.Resource.LoadAssetAsync<GameObject>(Cube);
         GameObject sphere = await GameEntry.Resource.LoadAssetAsync<GameObject>(Sphere);
         GameObject capsule = await GameEntry.Resource.LoadAssetAsync<GameObject>(Capsule);
@@ -24,6 +24,6 @@ public class HotUpdateMonoBehaviourTest : MonoBehaviour
         Instantiate(sphere);
         Instantiate(capsule);
         Instantiate(cylinder);
-        LogHelper.Log(LogLevel.Log, "热更资源加载成功");
+        LogHelper.LogInfo("热更资源加载成功");
     }
 }

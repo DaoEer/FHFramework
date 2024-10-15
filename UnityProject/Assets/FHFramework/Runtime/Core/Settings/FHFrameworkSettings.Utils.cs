@@ -17,7 +17,7 @@ namespace FHFramework
                     m_FHFrameworkSettings = Resources.Load<FHFrameworkSettings>(SettingsPath);
                     if (!m_FHFrameworkSettings)
                     {
-                        LogHelper.Log(LogLevel.Error, $"Could not found FHFrameworkSettings asset, so auto create:{SettingsPath}");
+                        LogHelper.LogError($"Could not found FHFrameworkSettings asset, so auto create:{SettingsPath}");
                     }
                 }
 

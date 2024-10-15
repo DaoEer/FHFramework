@@ -24,7 +24,7 @@ namespace FHFramework
 
             if (operation.Status != EOperationStatus.Succeed)
             {
-                LogHelper.Log(LogLevel.Error, operation.Error);
+                LogHelper.LogInfo(operation.Error);
                 return;
             }
             else

@@ -38,5 +38,25 @@ namespace FHFramework
                     throw new Exception(m_StringBuilder.ToString());
             }
         }
+
+        public static void LogInfo(string message)
+        {
+            Log(LogLevel.Log, message);
+        }
+
+        public static void LogWarning(string message)
+        {
+            Log(LogLevel.Warning, message);
+        }
+
+        public static void LogError(string message)
+        {
+            Log(LogLevel.Error, message);
+        }
+
+        public static void LogException(string message)
+        {
+            Log(LogLevel.Exception, message);
+        }
     }
 }

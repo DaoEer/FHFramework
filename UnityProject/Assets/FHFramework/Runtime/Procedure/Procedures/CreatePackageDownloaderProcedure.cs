@@ -24,7 +24,7 @@ namespace FHFramework
 
             if (downloader.TotalDownloadCount == 0)
             {
-                LogHelper.Log(LogLevel.Log, "Not found any download files !");
+                LogHelper.LogInfo("Not found any download files !");
                 GameEntry.Procedure.ProcedureFsm.SwitchState<UpdaterDoneProcedure>();
             }
             else

@@ -22,11 +22,11 @@ namespace FHFramework
 
             if (operation.Status != EOperationStatus.Succeed)
             {
-                LogHelper.Log(LogLevel.Error, operation.Error);
+                LogHelper.LogError(operation.Error);
             }
             else
             {
-                LogHelper.Log(LogLevel.Log, $"Request package version : {operation.PackageVersion}");
+                LogHelper.LogInfo($"Request package version : {operation.PackageVersion}");
                 GameEntry.Resource.PackageVersion = operation.PackageVersion;
                 GameEntry.Procedure.ProcedureFsm.SwitchState<UpdatePackageManifestProcedure>();
             }

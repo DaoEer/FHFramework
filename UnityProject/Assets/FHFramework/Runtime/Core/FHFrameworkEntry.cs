@@ -45,13 +45,13 @@ namespace FHFramework
         {
             if (module == null)
             {
-                LogHelper.Log(LogLevel.Error, "FHFramework Module is invelid.");
+                LogHelper.LogError("FHFramework Module is invelid.");
                 return;
             }
 
             if (m_ModuleMap.ContainsKey(module.GetType()))
             {
-                LogHelper.Log(LogLevel.Error, $"FHFramework Module {module.GetType()} is already exist.");
+                LogHelper.LogError($"FHFramework Module {module.GetType()} is already exist.");
                 return;
             }
 

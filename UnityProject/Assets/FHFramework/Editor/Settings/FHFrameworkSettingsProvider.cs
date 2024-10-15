@@ -35,7 +35,7 @@ namespace FHFramework
         {
             if (!File.Exists(SettingsPath))
             {
-                LogHelper.Log(LogLevel.Error, $"Open FHFramework Settings error, Please Create FHFrameworkSettings.assets File in Path: {SettingsPath}");
+                LogHelper.LogError($"Open FHFramework Settings error, Please Create FHFrameworkSettings.assets File in Path: {SettingsPath}");
                 return null;
             }
 
