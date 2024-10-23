@@ -1,30 +1,43 @@
+using UnityEngine;
+
 namespace FHFramework
 {
-    public class PanelBase
+    public class PanelBase : IPanel
     {
-        protected virtual void OnInstantiation()
-        {
+        private GameObject m_PanelInstance;
+        private PanelLogicBase m_PanelLogic;
 
+        public Transform Root
+        {
+            get
+            {
+                return m_PanelInstance.transform;
+            }
         }
 
-        protected virtual void OnRefresh()
+        public void Init(GameObject panelInstance)
         {
-
+            
         }
 
-        protected virtual void OnUpdate()
+        public void Open()
         {
-
+            
         }
 
-        protected virtual void OnClose()
+        public void Update()
         {
-
+            
         }
 
-        protected virtual void OnDestory()
+        public void Close()
         {
+            
+        }
 
+        public void Destory()
+        {
+            
         }
     }
 }
