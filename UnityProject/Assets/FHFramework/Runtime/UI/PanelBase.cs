@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace FHFramework
@@ -7,17 +8,11 @@ namespace FHFramework
         private GameObject m_PanelInstance;
         private PanelLogicBase m_PanelLogic;
 
-        public Transform Root
+        public void Init(GameObject panelInstance, Type logicType)
         {
-            get
-            {
-                return m_PanelInstance.transform;
-            }
-        }
-
-        public void Init(GameObject panelInstance)
-        {
-            
+            m_PanelInstance = panelInstance;
+            m_PanelLogic = Activator.CreateInstance(logicType) as PanelLogicBase;
+            m_PanelLogic.OnInit();
         }
 
         public void Open()

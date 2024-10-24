@@ -1,30 +1,30 @@
+using UnityEngine;
+
 namespace FHFramework
 {
     public abstract class PanelLogicBase
     {
-        private PanelLogicBase m_PanelLogic;
+        public virtual void OnInit()
+        {
+            
+        }
 
-        protected virtual void OnInit()
+        public virtual void OnOpen()
         {
 
         }
 
-        protected virtual void OnOpen()
+        public virtual void OnUpdate()
         {
 
         }
 
-        protected virtual void OnUpdate()
+        public virtual void OnClose()
         {
 
         }
 
-        protected virtual void OnClose()
-        {
-
-        }
-
-        protected virtual void OnDestory()
+        public virtual void OnDestory()
         {
 
         }

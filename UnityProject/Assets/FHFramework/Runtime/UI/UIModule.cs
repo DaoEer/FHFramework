@@ -1,4 +1,3 @@
-using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
 
@@ -6,27 +5,36 @@ namespace FHFramework
 {
     public partial class UIModule : FHFrameworkModule
     {
-        public void OpenPanel<T>() where T : PanelBase
-        {
-            OpenPanel(typeof(T));
-        }
-
-        public void OpenPanel(Type panelType)
+        public void OpenPanelSync(Type panelType)
         {
             IPanel panel = CreatePanel(panelType);
-            GameObject panelInstance = InstantiatePanel();
-            panel.Init(panelInstance);
+            PanelAttribute panelAttribute = Attribute.GetCustomAttribute(panelType, typeof(PanelAttribute)) as PanelAttribute;
+            GameObject panelInstance = GameEntry.Resource.LoadAssetSync<GameObject>(panelAttribute.Path);
+            panel.Init(panelInstance, panelAttribute.Logic);
+        }
+
+        public void OpenPanelSync<T>() where T : PanelBase
+        {
+            OpenPanelSync(typeof(T));
+        }
+
+        public async void OpenPanelAsync(Type panelType)
+        {
+            IPanel panel = CreatePanel(panelType);
+            PanelAttribute panelAttribute = Attribute.GetCustomAttribute(panelType, typeof(PanelAttribute)) as PanelAttribute;
+            GameObject panelInstance = await GameEntry.Resource.LoadAssetAsync<GameObject>(panelAttribute.Path);
+            panel.Init(panelInstance, panelAttribute.Logic);
+        }
+
+        public void OpenPanelAsync<T>() where T : PanelBase
+        {
+            OpenPanelAsync(typeof(T));
         }
 
         private IPanel CreatePanel(Type panelType)
         {
             PanelBase panel = Activator.CreateInstance(panelType) as PanelBase;
             return panel;
-        }
-
-        private async UniTask<GameObject> InstantiatePanel(string location)
-        {
-            return await GameEntry.Resource.LoadAssetAsync<GameObject>(location);
         }
     }
 }
