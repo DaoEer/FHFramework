@@ -5,6 +5,11 @@ namespace FHFramework
 {
     public partial class UIModule : FHFrameworkModule
     {
+        public void OpenPanelSync<T>() where T : PanelBase
+        {
+            OpenPanelSync(typeof(T));
+        }
+
         public void OpenPanelSync(Type panelType)
         {
             IPanel panel = CreatePanel(panelType);
@@ -13,9 +18,9 @@ namespace FHFramework
             panel.Init(panelInstance, panelAttribute.Logic);
         }
 
-        public void OpenPanelSync<T>() where T : PanelBase
+        public void OpenPanelAsync<T>() where T : PanelBase
         {
-            OpenPanelSync(typeof(T));
+            OpenPanelAsync(typeof(T));
         }
 
         public async void OpenPanelAsync(Type panelType)
@@ -24,11 +29,6 @@ namespace FHFramework
             PanelAttribute panelAttribute = Attribute.GetCustomAttribute(panelType, typeof(PanelAttribute)) as PanelAttribute;
             GameObject panelInstance = await GameEntry.Resource.LoadAssetAsync<GameObject>(panelAttribute.Path);
             panel.Init(panelInstance, panelAttribute.Logic);
-        }
-
-        public void OpenPanelAsync<T>() where T : PanelBase
-        {
-            OpenPanelAsync(typeof(T));
         }
 
         private IPanel CreatePanel(Type panelType)
