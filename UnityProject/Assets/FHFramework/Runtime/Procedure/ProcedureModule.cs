@@ -30,7 +30,14 @@ namespace FHFramework
 
             m_Procedures = new()
             {
-                new InitPackageProcedure()
+                new InitPackageProcedure(),
+                new UpdateVersionProcedure(),
+                new UpdatePackageManifestProcedure(),
+                new CreatePackageDownloaderProcedure(),
+                new DownloadPackageFilesProcedure(),
+                new DownloadPackageOverProcedure(),
+                new ClearPackageCacheProcedure(),
+                new UpdaterDoneProcedure()
             };
         }
 

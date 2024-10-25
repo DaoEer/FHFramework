@@ -15,7 +15,7 @@ namespace FHFramework
         public string PackageVersion { get; set; }
         public ResourceDownloaderOperation Downloader { get; set; }
 
-        private void Start()
+        protected override void Awake()
         {
             YooAssets.Initialize();
         }

@@ -20,3 +20,6 @@ MonoBehaviour:
     IOSUpdateDataUrl: http://127.0.0.1
     AndroidUpdateDataUrl: http://127.0.0.1
     WebGLUpdateDataUrl: http://127.0.0.1
+    PanelGroup:
+    - Normal
+    - Pop
