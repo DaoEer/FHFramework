@@ -7,23 +7,24 @@ namespace FHFramework
     public partial class UIModule : FHFrameworkModule
     {
         [SerializeField]
-        private Transform m_Root;
+        private Transform root;
         [SerializeField]
-        private List<PanelGroup> m_Groups;
-        private Dictionary<string, PanelGroup> m_GroupDictionary;
+        private List<PanelGroup> groups;
+        
+        private Dictionary<string, PanelGroup> _groupDictionary;
 
         protected override void Awake()
         {
             base.Awake();
 
-            m_GroupDictionary = new();
-            foreach (PanelGroup panelGroup in m_Groups)
+            _groupDictionary = new Dictionary<string, PanelGroup>();
+            foreach (PanelGroup panelGroup in groups)
             {
-                Transform groupRoot = new GameObject(panelGroup.GroupID, typeof(RectTransform)).transform;
-                groupRoot.SetParent(m_Root);
+                Transform groupRoot = new GameObject(panelGroup.GroupID, typeof(Canvas)).transform;
+                groupRoot.SetParent(root);
                 groupRoot.GetComponent<RectTransform>().SetStretchMode();
                 panelGroup.Init(groupRoot);
-                m_GroupDictionary.Add(panelGroup.GroupID, panelGroup);
+                _groupDictionary.Add(panelGroup.GroupID, panelGroup);
             }
         }
 
@@ -36,8 +37,8 @@ namespace FHFramework
         {
             IPanel panel = CreatePanel(panelType);
             PanelAttribute panelAttribute = Attribute.GetCustomAttribute(panelType, typeof(PanelAttribute)) as PanelAttribute;
-            GameObject panelInstance = GameEntry.Resource.LoadAssetSync<GameObject>(panelAttribute.Path);
-            panel.Init(panelInstance, panelAttribute.Logic);
+            GameObject panelInstance = GameEntry.Resource.LoadAssetSync<GameObject>(panelAttribute!.Path);
+            panel.Init(panelInstance, panelAttribute!.Logic);
         }
 
         public void OpenPanelAsync<T>() where T : PanelBase
@@ -49,8 +50,8 @@ namespace FHFramework
         {
             IPanel panel = CreatePanel(panelType);
             PanelAttribute panelAttribute = Attribute.GetCustomAttribute(panelType, typeof(PanelAttribute)) as PanelAttribute;
-            GameObject panelInstance = await GameEntry.Resource.LoadAssetAsync<GameObject>(panelAttribute.Path);
-            panel.Init(panelInstance, panelAttribute.Logic);
+            GameObject panelInstance = await GameEntry.Resource.LoadAssetAsync<GameObject>(panelAttribute!.Path);
+            panel.Init(panelInstance, panelAttribute!.Logic);
         }
 
         public void ClosePanel<T>()

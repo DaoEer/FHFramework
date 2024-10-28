@@ -6,25 +6,25 @@ namespace FHFramework
 {
     public class SceneModule : FHFrameworkModule
     {
-        private Dictionary<string, Scene> m_LoadedScene;
+        private Dictionary<string, Scene> _loadedScene;
 
         protected override void Awake()
         {
             base.Awake();
 
-            m_LoadedScene = new Dictionary<string, Scene>();
+            _loadedScene = new Dictionary<string, Scene>();
         }
 
         public async void LoadScene(string path)
         {
-            if (m_LoadedScene.ContainsKey(path)) return;
+            if (_loadedScene.ContainsKey(path)) return;
             Scene scene = await GameEntry.Resource.LoadSceneAsync(path, LoadSceneMode.Additive);
-            m_LoadedScene.Add(path, scene);
+            _loadedScene.Add(path, scene);
         }
 
         public async void UnloadScene(string path)
         {
-            if (!m_LoadedScene.ContainsKey(path)) return;
+            if (!_loadedScene.ContainsKey(path)) return;
             await SceneManager.UnloadSceneAsync(path);
         }
     }

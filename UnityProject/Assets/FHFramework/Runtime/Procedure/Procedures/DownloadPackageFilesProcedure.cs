@@ -14,13 +14,13 @@ namespace FHFramework
 
         private async UniTask BeginDownload()
         {
-            var downloader = GameEntry.Resource.Downloader;
+            ResourceDownloaderOperation downloader = GameEntry.Resource.Downloader;
             //downloader.OnDownloadErrorCallback = PatchEventDefine.WebFileDownloadFailed.SendEventMessage;
             //downloader.OnDownloadProgressCallback = PatchEventDefine.DownloadProgressUpdate.SendEventMessage;
             downloader.BeginDownload();
             await downloader;
 
-            // ¼ì²âÏÂÔØ½á¹û
+            // æ£€æµ‹ä¸‹è½½ç»“æžœ
             if (downloader.Status != EOperationStatus.Succeed) return;
             GameEntry.Procedure.ProcedureFsm.SwitchState<DownloadPackageOverProcedure>();
         }

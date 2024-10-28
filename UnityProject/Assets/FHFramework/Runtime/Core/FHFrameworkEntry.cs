@@ -5,22 +5,22 @@ using UnityEngine;
 namespace FHFramework
 {
     /// <summary>
-    /// ”Œœ∑øÚº‹»Îø⁄
+    /// Ê°ÜÊû∂ÂÖ•Âè£
     /// </summary>
     public static class FHFrameworkEntry
     {
-        private static Dictionary<Type, FHFrameworkModule> m_ModuleMap;
-        private static LinkedList<FHFrameworkModule> m_UpdateMosules;
+        private static Dictionary<Type, FHFrameworkModule> _moduleMap;
+        private static LinkedList<FHFrameworkModule> _updateModules;
 
         static FHFrameworkEntry()
         {
-            m_ModuleMap = new Dictionary<Type, FHFrameworkModule>();
-            m_UpdateMosules = new LinkedList<FHFrameworkModule>();
+            _moduleMap = new Dictionary<Type, FHFrameworkModule>();
+            _updateModules = new LinkedList<FHFrameworkModule>();
         }
 
         public static void Update()
         {
-            for (LinkedListNode<FHFrameworkModule> current = m_UpdateMosules.First; current != null; current = current.Next)
+            for (LinkedListNode<FHFrameworkModule> current = _updateModules.First; current != null; current = current.Next)
             {
                 current.Value.UpdateModule(Time.deltaTime, Time.unscaledDeltaTime);
             }
@@ -33,12 +33,7 @@ namespace FHFramework
 
         public static FHFrameworkModule GetModule(Type type)
         {
-            if (m_ModuleMap.TryGetValue(type, out FHFrameworkModule module))
-            {
-                return module;
-            }
-
-            return null;
+            return _moduleMap.GetValueOrDefault(type);
         }
 
         public static void RegisterModule(FHFrameworkModule module)
@@ -49,17 +44,17 @@ namespace FHFramework
                 return;
             }
 
-            if (m_ModuleMap.ContainsKey(module.GetType()))
+            if (_moduleMap.ContainsKey(module.GetType()))
             {
                 LogHelper.LogError($"FHFramework Module {module.GetType()} is already exist.");
                 return;
             }
 
 
-            LinkedListNode<FHFrameworkModule> currentNode = m_UpdateMosules.First;
+            LinkedListNode<FHFrameworkModule> currentNode = _updateModules.First;
             if(currentNode == null)
             {
-                m_UpdateMosules.AddLast(module);
+                _updateModules.AddLast(module);
                 return;
             }
 
@@ -67,13 +62,13 @@ namespace FHFramework
             {
                 if (module.Priority < currentNode.Value.Priority)
                 {
-                    m_UpdateMosules.AddBefore(currentNode, module);
+                    _updateModules.AddBefore(currentNode, module);
                     break;
                 }
                 currentNode = currentNode.Next;
             }
 
-            m_ModuleMap.Add(module.GetType(), module);
+            _moduleMap.Add(module.GetType(), module);
         }
     }
 }

@@ -14,28 +14,29 @@ namespace FHFramework
 
     public class LogHelper
     {
-        private static readonly StringBuilder m_StringBuilder = new StringBuilder(1024);
+        private static StringBuilder _stringBuilder = new(1024);
 
         public static void Log(LogLevel logLevel, string message)
         {
-            m_StringBuilder.Clear();
+            _stringBuilder.Clear();
             switch (logLevel)
             {
                 case LogLevel.Log:
-                    m_StringBuilder.AppendFormat($"<color=#C0C0C0><b>[{LogLevel.Log}] ► </b></color><color=gray>{message}</color>");
-                    Debug.Log(m_StringBuilder.ToString());
+                    _stringBuilder.AppendFormat($"<color=#C0C0C0><b>[{LogLevel.Log}] ► </b></color><color=gray>{message}</color>");
+                    Debug.Log(_stringBuilder.ToString());
                     break;
                 case LogLevel.Warning:
-                    m_StringBuilder.AppendFormat($"<color=#CC9A06><b>[{LogLevel.Warning}] ► </b></color><color=gray>{message}</color>");
-                    Debug.LogWarning(m_StringBuilder.ToString());
+                    _stringBuilder.AppendFormat($"<color=#CC9A06><b>[{LogLevel.Warning}] ► </b></color><color=gray>{message}</color>");
+                    Debug.LogWarning(_stringBuilder.ToString());
                     break;
                 case LogLevel.Error:
-                    m_StringBuilder.AppendFormat($"<color=#CC423B><b>[{LogLevel.Error}] ► </b></color><color=gray>{message}</color>");
-                    Debug.LogError(m_StringBuilder.ToString());
+                    _stringBuilder.AppendFormat($"<color=#CC423B><b>[{LogLevel.Error}] ► </b></color><color=gray>{message}</color>");
+                    Debug.LogError(_stringBuilder.ToString());
                     break;
+                case LogLevel.Exception:
                 default:
-                    m_StringBuilder.AppendFormat($"<color=#CC423B><b>[{LogLevel.Exception}] ► </b></color><color=gray>{message}</color>");
-                    throw new Exception(m_StringBuilder.ToString());
+                    _stringBuilder.AppendFormat($"<color=#CC423B><b>[{LogLevel.Exception}] ► </b></color><color=gray>{message}</color>");
+                    throw new Exception(_stringBuilder.ToString());
             }
         }
 

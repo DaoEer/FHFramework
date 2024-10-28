@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class HotUpdateMonoBehaviourTest : MonoBehaviour
 {
-    public string Cube;
-    public string Sphere;
-    public string Capsule;
-    public string Cylinder;
+    public string cube;
+    public string sphere;
+    public string capsule;
+    public string cylinder;
 
     private void Start()
     {
@@ -15,15 +15,15 @@ public class HotUpdateMonoBehaviourTest : MonoBehaviour
 
     public async void Test()
     {
-        LogHelper.LogInfo("热更代码加载成功");
-        GameObject cube = await GameEntry.Resource.LoadAssetAsync<GameObject>(Cube);
-        GameObject sphere = await GameEntry.Resource.LoadAssetAsync<GameObject>(Sphere);
-        GameObject capsule = await GameEntry.Resource.LoadAssetAsync<GameObject>(Capsule);
-        GameObject cylinder = await GameEntry.Resource.LoadAssetAsync<GameObject>(Cylinder);
-        Instantiate(cube);
-        Instantiate(sphere);
-        Instantiate(capsule);
-        Instantiate(cylinder);
-        LogHelper.LogInfo("热更资源加载成功");
+        LogHelper.LogInfo("鐑洿浠ｇ爜鍔犺浇鎴愬姛");
+        GameObject cubeGameObject = await GameEntry.Resource.LoadAssetAsync<GameObject>(this.cube);
+        GameObject sphereGameObject = await GameEntry.Resource.LoadAssetAsync<GameObject>(this.sphere);
+        GameObject capsuleGameObject = await GameEntry.Resource.LoadAssetAsync<GameObject>(this.capsule);
+        GameObject cylinderGameObject = await GameEntry.Resource.LoadAssetAsync<GameObject>(this.cylinder);
+        Instantiate(cubeGameObject);
+        Instantiate(sphereGameObject);
+        Instantiate(capsuleGameObject);
+        Instantiate(cylinderGameObject);
+        LogHelper.LogInfo("鐑洿璧勬簮鍔犺浇鎴愬姛");
     }
 }

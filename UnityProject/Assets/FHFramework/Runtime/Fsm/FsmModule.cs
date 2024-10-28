@@ -5,37 +5,39 @@ namespace FHFramework
 {
     public class FsmModule : FHFrameworkModule
     {
-        private Dictionary<string, Fsm> m_Fsms;
+        private Dictionary<string, Fsm> _fsms;
 
         protected override void Awake()
         {
             base.Awake();
-            m_Fsms = new Dictionary<string, Fsm>();
+            _fsms = new Dictionary<string, Fsm>();
         }
 
         private void Update()
         {
-            foreach (Fsm fsm in m_Fsms.Values)
+            foreach (Fsm fsm in _fsms.Values)
             {
                 fsm.Update(Time.deltaTime, Time.unscaledDeltaTime);
             }
         }
 
-        public Fsm GetFsm(string name)
+        public Fsm GetFsm(string fsmName)
         {
-            m_Fsms.TryGetValue(name, out Fsm fsm);
+            _fsms.TryGetValue(fsmName, out Fsm fsm);
             return fsm;
         }
 
-        public Fsm Create(string name, params FsmState[] states)
+        public Fsm Create(string fsmName, params FsmState[] states)
         {
-            return Create(name, states);
+            return Create(fsmName, (IEnumerable<FsmState>)states);
         }
 
-        public Fsm Create(string name, IEnumerable<FsmState> states)
+        public Fsm Create(string fsmName, IEnumerable<FsmState> states)
         {
-            if (m_Fsms.ContainsKey(name)) return null;
-            return Fsm.Create(name, states);
+            if (_fsms.TryGetValue(fsmName, out Fsm fsm)) return fsm;
+            fsm = Fsm.Create(fsmName, states);
+            _fsms.Add(fsmName, fsm);
+            return fsm;
         }
     }
 }

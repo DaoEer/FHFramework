@@ -4,11 +4,11 @@ namespace FHFramework
 {
     public partial class EventManager
     {
-        private readonly Dictionary<int, EventDelegateData> m_EventTable;
+        private readonly Dictionary<int, EventDelegateData> _eventTable;
 
         EventManager()
         {
-            m_EventTable = new();
+            _eventTable = new Dictionary<int, EventDelegateData>();
         }
     }
 }

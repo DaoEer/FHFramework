@@ -3,7 +3,7 @@ using UnityEngine;
 namespace FHFramework
 {
     /// <summary>
-    /// 游戏入口
+    /// 娓告垙鍏ュ彛
     /// </summary>
     public partial class GameEntry : MonoBehaviour
     {

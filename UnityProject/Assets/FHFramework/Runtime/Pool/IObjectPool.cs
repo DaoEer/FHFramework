@@ -1,42 +1,42 @@
 namespace FHFramework
 {
     /// <summary>
-    /// ¶ÔÏó³Ø¶ÔÍâ½Ó¿Ú
+    /// å¯¹è±¡æ± å¯¹å¤–æ¥å£
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public interface IObjectPool<T> where T : PoolObjectBase
     {
         /// <summary>
-        /// ´´½¨¶ÔÏó
+        /// åˆ›å»ºå¯¹è±¡
         /// </summary>
-        /// <param name="obj">¶ÔÏó</param>
-        /// <param name="spawned">¶ÔÏóÊÇ·ñÒÑ±»»ñÈ¡</param>
+        /// <param name="obj">å¯¹è±¡</param>
+        /// <param name="spawned">å¯¹è±¡æ˜¯å¦å·²è¢«è·å–</param>
         public void Register(T obj, bool spawned);
 
         /// <summary>
-        /// »ñÈ¡¶ÔÏó
+        /// è·å–å¯¹è±¡
         /// </summary>
         /// <returns></returns>
         public bool TrySpawn(out T obj);
 
         /// <summary>
-        /// »ØÊÕ¶ÔÏó
+        /// å›æ”¶å¯¹è±¡
         /// </summary>
         /// <param name="obj"></param>
         public void Unspawn(T obj);
 
         /// <summary>
-        /// ÊÍ·Å¶ÔÏó¡£
+        /// é‡Šæ”¾å¯¹è±¡ã€‚
         /// </summary>
-        /// <param name="obj">ÒªÊÍ·ÅµÄ¶ÔÏó¡£</param>
-        /// <returns>ÊÍ·Å¶ÔÏóÊÇ·ñ³É¹¦¡£</returns>
+        /// <param name="obj">è¦é‡Šæ”¾çš„å¯¹è±¡ã€‚</param>
+        /// <returns>é‡Šæ”¾å¯¹è±¡æ˜¯å¦æˆåŠŸã€‚</returns>
         public bool ReleaseObject(T obj);
 
         /// <summary>
-        /// ÉèÖÃ¶ÔÏóÊÇ·ñ±»¼ÓËø¡£
+        /// è®¾ç½®å¯¹è±¡æ˜¯å¦è¢«åŠ é”ã€‚
         /// </summary>
-        /// <param name="obj">ÒªÉèÖÃ±»¼ÓËøµÄ¶ÔÏó¡£</param>
-        /// <param name="locked">ÊÇ·ñ±»¼ÓËø¡£</param>
+        /// <param name="obj">è¦è®¾ç½®è¢«åŠ é”çš„å¯¹è±¡ã€‚</param>
+        /// <param name="locked">æ˜¯å¦è¢«åŠ é”ã€‚</param>
         public void SetLocked(T obj, bool locked);
     }
 }

@@ -13,6 +13,6 @@ namespace FHFramework
 
         public void Close();
 
-        public void Destory();
+        public void Destroy();
     }
 }

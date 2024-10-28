@@ -5,22 +5,22 @@ namespace FHFramework
 {
     public class PanelBase : IPanel
     {
-        private GameObject m_PanelInstance;
-        private PanelLogicBase m_PanelLogic;
+        private GameObject _panelInstance;
+        private PanelLogicBase _panelLogic;
 
         public GameObject Root
         {
             get
             {
-                return m_PanelInstance;
+                return _panelInstance;
             }
         }
 
         public void Init(GameObject panelInstance, Type logicType)
         {
-            m_PanelInstance = panelInstance;
-            m_PanelLogic = Activator.CreateInstance(logicType) as PanelLogicBase;
-            m_PanelLogic.OnInit(this);
+            _panelInstance = panelInstance;
+            _panelLogic = Activator.CreateInstance(logicType) as PanelLogicBase;
+            _panelLogic!.OnInit(this);
         }
 
         public void Open()
@@ -38,7 +38,7 @@ namespace FHFramework
             
         }
 
-        public void Destory()
+        public void Destroy()
         {
             
         }

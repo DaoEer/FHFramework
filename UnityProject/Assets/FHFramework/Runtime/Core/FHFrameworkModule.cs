@@ -2,9 +2,6 @@ using UnityEngine;
 
 namespace FHFramework
 {
-    /// <summary>
-    /// ¿ò¼ÜÄ£¿é»ùÀà
-    /// </summary>
     public abstract class FHFrameworkModule : MonoBehaviour
     {
         public virtual int Priority => 0;

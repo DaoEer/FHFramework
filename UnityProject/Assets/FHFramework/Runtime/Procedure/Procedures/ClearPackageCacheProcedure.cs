@@ -8,9 +8,9 @@ namespace FHFramework
         {
             base.OnEnter();
 
-            ResourcePackage package = YooAssets.GetPackage(GameEntry.Resource.DefaultPackageName);
+            ResourcePackage package = YooAssets.GetPackage(GameEntry.Resource.defaultPackageName);
             ClearUnusedBundleFilesOperation operation = package.ClearUnusedBundleFilesAsync();
-            operation.Completed += operation => GameEntry.Procedure.ProcedureFsm.SwitchState<UpdaterDoneProcedure>();
+            operation.Completed += operationBase => GameEntry.Procedure.ProcedureFsm.SwitchState<UpdaterDoneProcedure>();
         }
     }
 }

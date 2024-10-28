@@ -16,11 +16,11 @@ namespace FHFramework
         {
             await UniTask.Delay(500);
 
-            var packageName = GameEntry.Resource.DefaultPackageName;
-            var package = YooAssets.GetPackage(packageName);
+            string packageName = GameEntry.Resource.defaultPackageName;
+            ResourcePackage package = YooAssets.GetPackage(packageName);
             int downloadingMaxNum = 10;
             int failedTryAgain = 3;
-            var downloader = package.CreateResourceDownloader(downloadingMaxNum, failedTryAgain);
+            ResourceDownloaderOperation downloader = package.CreateResourceDownloader(downloadingMaxNum, failedTryAgain);
 
             if (downloader.TotalDownloadCount == 0)
             {
@@ -29,8 +29,8 @@ namespace FHFramework
             }
             else
             {
-                // ·¢ÏÖĞÂ¸üĞÂÎÄ¼şºó£¬¹ÒÆğÁ÷³ÌÏµÍ³
-                // ×¢Òâ£º¿ª·¢ÕßĞèÒªÔÚÏÂÔØÇ°¼ì²â´ÅÅÌ¿Õ¼ä²»×ã
+                // å‘ç°æ–°æ›´æ–°æ–‡ä»¶åï¼ŒæŒ‚èµ·æµç¨‹ç³»ç»Ÿ
+                // æ³¨æ„ï¼šå¼€å‘è€…éœ€è¦åœ¨ä¸‹è½½å‰æ£€æµ‹ç£ç›˜ç©ºé—´ä¸è¶³
                 int totalDownloadCount = downloader.TotalDownloadCount;
                 long totalDownloadBytes = downloader.TotalDownloadBytes;
                 GameEntry.Procedure.ProcedureFsm.SwitchState<DownloadPackageFilesProcedure>();

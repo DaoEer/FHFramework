@@ -3,12 +3,12 @@ using System;
 namespace FHFramework
 {
     /// <summary>
-    /// ¶ÔÏó³Ø»ùÀà
+    /// å¯¹è±¡æ± åŸºç±»
     /// </summary>
     public abstract class ObjectPoolBase
     {
         /// <summary>
-        /// ¶ÔÏó³ØÀàĞÍ
+        /// å¯¹è±¡æ± ç±»å‹
         /// </summary>
         public abstract Type ObjectType
         {
@@ -16,19 +16,19 @@ namespace FHFramework
         }
 
         /// <summary>
-        /// ÊÍ·Å¶ÔÏó³ØÄÚ¿ÉÒÔÊÍ·ÅµÄ¶ÔÏó
+        /// é‡Šæ”¾å¯¹è±¡æ± å†…å¯ä»¥é‡Šæ”¾çš„å¯¹è±¡
         /// </summary>
         public abstract void Release();
 
         /// <summary>
-        /// ¶ÔÏó³ØÂÖÑ¯
+        /// å¯¹è±¡æ± è½®è¯¢
         /// </summary>
         /// <param name="deltaTime">Time.deltaTime</param>
         /// <param name="realDeltaTime">Time.unscaledDeltaTime</param>
         public abstract void Update();
 
         /// <summary>
-        /// ³¢ÊÔ»ñÈ¡¶ÔÏó³Ø¶ÔÏó
+        /// å°è¯•è·å–å¯¹è±¡æ± å¯¹è±¡
         /// </summary>
         /// <param name="obj"></param>
         /// <param name="poolObject"></param>
@@ -36,41 +36,41 @@ namespace FHFramework
         public abstract bool TryGetObject(object obj, out PoolObjectBase poolObject);
 
         /// <summary>
-        /// »ñÈ¡¶ÔÏó
+        /// è·å–å¯¹è±¡
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
         public abstract bool TrySpawn(out object obj);
 
         /// <summary>
-        /// »ØÊÕ¶ÔÏó
+        /// å›æ”¶å¯¹è±¡
         /// </summary>
         /// <param name="obj"></param>
         public abstract void Unspawn(object obj);
 
         /// <summary>
-        /// ÊÍ·Å¶ÔÏó
+        /// é‡Šæ”¾å¯¹è±¡
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
         public abstract bool ReleaseObject(PoolObjectBase obj);
 
         /// <summary>
-        /// ÊÍ·Å¶ÔÏó¡£
+        /// é‡Šæ”¾å¯¹è±¡ã€‚
         /// </summary>
-        /// <param name="target">ÒªÊÍ·ÅµÄ¶ÔÏó¡£</param>
-        /// <returns>ÊÍ·Å¶ÔÏóÊÇ·ñ³É¹¦¡£</returns>
+        /// <param name="target">è¦é‡Šæ”¾çš„å¯¹è±¡ã€‚</param>
+        /// <returns>é‡Šæ”¾å¯¹è±¡æ˜¯å¦æˆåŠŸã€‚</returns>
         public abstract bool ReleaseObject(object obj);
 
         /// <summary>
-        /// ÉèÖÃ¶ÔÏóÊÇ·ñ±»¼ÓËø¡£
+        /// è®¾ç½®å¯¹è±¡æ˜¯å¦è¢«åŠ é”ã€‚
         /// </summary>
-        /// <param name="target">ÒªÉèÖÃ±»¼ÓËøµÄ¶ÔÏó¡£</param>
-        /// <param name="locked">ÊÇ·ñ±»¼ÓËø¡£</param>
+        /// <param name="target">è¦è®¾ç½®è¢«åŠ é”çš„å¯¹è±¡ã€‚</param>
+        /// <param name="locked">æ˜¯å¦è¢«åŠ é”ã€‚</param>
         public abstract void SetLocked(object obj, bool locked);
 
         /// <summary>
-        /// ¹Ø±Õ¶ÔÏó³Ø
+        /// å…³é—­å¯¹è±¡æ± 
         /// </summary>
         public abstract void Shutdown();
     }

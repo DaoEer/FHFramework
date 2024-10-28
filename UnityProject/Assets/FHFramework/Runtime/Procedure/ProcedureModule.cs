@@ -4,15 +4,15 @@ namespace FHFramework
 {
     public class ProcedureModule : FHFrameworkModule
     {
-        private List<Procedure> m_Procedures;
+        private List<Procedure> _procedures;
 
-        private Fsm m_ProcedureFsm;
+        private Fsm _procedureFsm;
 
         public Fsm ProcedureFsm
         {
             get
             {
-                return m_ProcedureFsm;
+                return _procedureFsm;
             }
         }
 
@@ -20,7 +20,7 @@ namespace FHFramework
         {
             get
             {
-                return (Procedure)m_ProcedureFsm.CurrentState;
+                return (Procedure)_procedureFsm.CurrentState;
             }
         }
 
@@ -28,7 +28,7 @@ namespace FHFramework
         {
             base.Awake();
 
-            m_Procedures = new()
+            _procedures = new List<Procedure>
             {
                 new InitPackageProcedure(),
                 new UpdateVersionProcedure(),
@@ -43,8 +43,8 @@ namespace FHFramework
 
         private void Start()
         {
-            m_ProcedureFsm = GameEntry.Fsm.Create("GameProcedure", m_Procedures);
-            m_ProcedureFsm.SwitchState<InitPackageProcedure>();
+            _procedureFsm = GameEntry.Fsm.Create("GameProcedure", _procedures);
+            _procedureFsm.SwitchState<InitPackageProcedure>();
         }
     }
 }

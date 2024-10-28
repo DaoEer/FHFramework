@@ -5,18 +5,18 @@ namespace FHFramework
 {
     public partial class ObjectPoolModule : FHFrameworkModule
     {
-        private Dictionary<Type, ObjectPoolBase> m_Pools;
+        private Dictionary<Type, ObjectPoolBase> _pools;
 
         /// <summary>
-        /// »ñÈ¡¶ÔÏó³Ø£¬Èô¶ÔÏó³Ø²»´æÔÚÔò×Ô¶¯´´½¨
+        /// è·å–å¯¹è±¡æ± ï¼Œè‹¥å¯¹è±¡æ± ä¸å­˜åœ¨åˆ™è‡ªåŠ¨åˆ›å»º
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="autoReleaseInterval">¶ÔÏó³Ø×Ô¶¯ÊÍ·Å¶ÔÏóÊ±¼ä¼ä¸ô</param>
-        /// <param name="expireTime">¶ÔÏó¹ıÆÚÊ±¼ä</param>
-        /// <returns>¶ÔÏó³Ø²Ù×÷½Ó¿Ú</returns>
+        /// <param name="autoReleaseInterval">å¯¹è±¡æ± è‡ªåŠ¨é‡Šæ”¾å¯¹è±¡æ—¶é—´é—´éš”</param>
+        /// <param name="expireTime">å¯¹è±¡è¿‡æœŸæ—¶é—´</param>
+        /// <returns>å¯¹è±¡æ± æ“ä½œæ¥å£</returns>
         public IObjectPool<T> GetObjectPool<T>(float autoReleaseInterval = 30, float expireTime = 30) where T : PoolObjectBase
         {
-            if (!m_Pools.TryGetValue(typeof(T), out ObjectPoolBase poolBase))
+            if (!_pools.TryGetValue(typeof(T), out ObjectPoolBase poolBase))
             {
                 poolBase = InternalObjectPool<T>(autoReleaseInterval, expireTime);
             }
@@ -25,15 +25,15 @@ namespace FHFramework
         }
 
         /// <summary>
-        /// »ñÈ¡¶ÔÏó³Ø£¬Èô¶ÔÏó³Ø²»´æÔÚÔò×Ô¶¯´´½¨
+        /// è·å–å¯¹è±¡æ± ï¼Œè‹¥å¯¹è±¡æ± ä¸å­˜åœ¨åˆ™è‡ªåŠ¨åˆ›å»º
         /// </summary>
         /// <param name="poolObjectType"></param>
-        /// <param name="autoReleaseInterval">¶ÔÏó³Ø×Ô¶¯ÊÍ·Å¶ÔÏóÊ±¼ä¼ä¸ô</param>
-        /// <param name="expireTime">¶ÔÏó¹ıÆÚÊ±¼ä</param>
+        /// <param name="autoReleaseInterval">å¯¹è±¡æ± è‡ªåŠ¨é‡Šæ”¾å¯¹è±¡æ—¶é—´é—´éš”</param>
+        /// <param name="expireTime">å¯¹è±¡è¿‡æœŸæ—¶é—´</param>
         /// <returns></returns>
         public ObjectPoolBase GetObjectPool(Type poolObjectType, float autoReleaseInterval = 30, float expireTime = 30)
         {
-            if (!m_Pools.TryGetValue(poolObjectType, out ObjectPoolBase poolBase))
+            if (!_pools.TryGetValue(poolObjectType, out ObjectPoolBase poolBase))
             {
                 poolBase = InternalObjectPool(poolObjectType, autoReleaseInterval, expireTime);
             }
@@ -44,7 +44,7 @@ namespace FHFramework
         private ObjectPoolBase InternalObjectPool<T>(float autoReleaseInterval, float expireTime) where T : PoolObjectBase
         {
             ObjectPool<T> objectPool = new ObjectPool<T>(autoReleaseInterval, expireTime);
-            m_Pools.Add(typeof(T), objectPool);
+            _pools.Add(typeof(T), objectPool);
             return objectPool;
         }
 
@@ -58,18 +58,18 @@ namespace FHFramework
 
             Type objectPoolType = typeof(ObjectPool<>).MakeGenericType(poolObjectType);
             ObjectPoolBase objectPool = (ObjectPoolBase)Activator.CreateInstance(objectPoolType, new object[] { autoReleaseInterval, expireTime });
-            m_Pools.Add(poolObjectType, objectPool);
+            _pools.Add(poolObjectType, objectPool);
             return objectPool;
         }
 
         /// <summary>
-        /// ¶ÔÏó³ØÊÇ·ñ´æÔÚ
+        /// å¯¹è±¡æ± æ˜¯å¦å­˜åœ¨
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public bool HasObjectPool<T>() where T : PoolObjectBase
         {
-            return m_Pools.ContainsKey(typeof(T));
+            return _pools.ContainsKey(typeof(T));
         }
     }
 }

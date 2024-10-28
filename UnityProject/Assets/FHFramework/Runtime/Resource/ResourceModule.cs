@@ -1,16 +1,14 @@
-using Cysharp.Threading.Tasks;
-using UnityEditor;
 using YooAsset;
 
 namespace FHFramework
 {
     /// <summary>
-    /// ×ÊÔ´Ä£¿é
+    /// èµ„æºæ¨¡å—
     /// </summary>
     public partial class ResourceModule : FHFrameworkModule
     {
-        public string DefaultPackageName = "DefaultPackage";
-        public EPlayMode PlayMode;
+        public string defaultPackageName = "DefaultPackage";
+        public EPlayMode playMode = EPlayMode.EditorSimulateMode;
 
         public string PackageVersion { get; set; }
         public ResourceDownloaderOperation Downloader { get; set; }

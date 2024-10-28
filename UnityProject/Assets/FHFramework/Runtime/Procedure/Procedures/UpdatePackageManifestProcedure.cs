@@ -16,16 +16,15 @@ namespace FHFramework
         {
             await UniTask.Delay(500);
 
-            var packageName = GameEntry.Resource.DefaultPackageName;
-            var packageVersion = GameEntry.Resource.PackageVersion;
-            var package = YooAssets.GetPackage(packageName);
-            var operation = package.UpdatePackageManifestAsync(packageVersion);
+            string packageName = GameEntry.Resource.defaultPackageName;
+            string packageVersion = GameEntry.Resource.PackageVersion;
+            ResourcePackage package = YooAssets.GetPackage(packageName);
+            UpdatePackageManifestOperation operation = package.UpdatePackageManifestAsync(packageVersion);
             await operation;
 
             if (operation.Status != EOperationStatus.Succeed)
             {
                 LogHelper.LogInfo(operation.Error);
-                return;
             }
             else
             {

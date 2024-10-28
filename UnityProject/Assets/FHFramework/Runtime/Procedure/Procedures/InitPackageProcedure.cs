@@ -8,51 +8,55 @@ namespace FHFramework
     {
         public override void OnEnter()
         {
-            LogHelper.LogInfo("InitPackageProcedure£∫≥ı ºªØ◊ ‘¥∞¸¡˜≥Ã");
+            LogHelper.LogInfo("InitPackageProcedureÔºöÂàùÂßãÂåñËµÑÊ∫êÂåÖÊµÅÁ®ã");
 
             InitPackage().Forget();
         }
 
         public async UniTask InitPackage()
         {
-            ResourcePackage package = YooAssets.TryGetPackage(GameEntry.Resource.DefaultPackageName);
-            package ??= YooAssets.CreatePackage(GameEntry.Resource.DefaultPackageName);
+            ResourcePackage package = YooAssets.TryGetPackage(GameEntry.Resource.defaultPackageName);
+            package ??= YooAssets.CreatePackage(GameEntry.Resource.defaultPackageName);
 
             InitializationOperation initializationOperation = null;
-            if (GameEntry.Resource.PlayMode == EPlayMode.EditorSimulateMode)
+            switch (GameEntry.Resource.playMode)
             {
-                SimulateBuildResult simulateBuildResult = EditorSimulateModeHelper.SimulateBuild(GameEntry.Resource.DefaultPackageName, GameEntry.Resource.DefaultPackageName);
-                EditorSimulateModeParameters createParameters = new();
-                createParameters.EditorFileSystemParameters = FileSystemParameters.CreateDefaultEditorFileSystemParameters(simulateBuildResult);
-                initializationOperation = package.InitializeAsync(createParameters);
-            }
-
-            // µ•ª˙‘À––ƒ£ Ω
-            if (GameEntry.Resource.PlayMode == EPlayMode.OfflinePlayMode)
-            {
-                OfflinePlayModeParameters createParameters = new();
-                createParameters.BuildinFileSystemParameters = FileSystemParameters.CreateDefaultBuildinFileSystemParameters();
-                initializationOperation = package.InitializeAsync(createParameters);
-            }
-
-            // ¡™ª˙‘À––ƒ£ Ω
-            if (GameEntry.Resource.PlayMode == EPlayMode.HostPlayMode)
-            {
-                string defaultHostServer = GetHostServerURL();
-                string fallbackHostServer = GetHostServerURL();
-                IRemoteServices remoteServices = new RemoteServices(defaultHostServer, fallbackHostServer);
-                HostPlayModeParameters createParameters = new();
-                createParameters.BuildinFileSystemParameters = FileSystemParameters.CreateDefaultBuildinFileSystemParameters();
-                createParameters.CacheFileSystemParameters = FileSystemParameters.CreateDefaultCacheFileSystemParameters(remoteServices);
-                initializationOperation = package.InitializeAsync(createParameters);
-            }
-
-            // WebGL‘À––ƒ£ Ω
-            if (GameEntry.Resource.PlayMode == EPlayMode.WebPlayMode)
-            {
-                WebPlayModeParameters createParameters = new();
-                createParameters.WebFileSystemParameters = FileSystemParameters.CreateDefaultWebFileSystemParameters();
-                initializationOperation = package.InitializeAsync(createParameters);
+                case EPlayMode.EditorSimulateMode:
+                {
+                    SimulateBuildResult simulateBuildResult = EditorSimulateModeHelper.SimulateBuild(EDefaultBuildPipeline.BuiltinBuildPipeline, GameEntry.Resource.defaultPackageName);
+                    EditorSimulateModeParameters createParameters = new();
+                    createParameters.EditorFileSystemParameters = FileSystemParameters.CreateDefaultEditorFileSystemParameters(simulateBuildResult);
+                    initializationOperation = package.InitializeAsync(createParameters);
+                    break;
+                }
+                // ÂçïÊú∫ËøêË°åÊ®°Âºè
+                case EPlayMode.OfflinePlayMode:
+                {
+                    OfflinePlayModeParameters createParameters = new();
+                    createParameters.BuildinFileSystemParameters = FileSystemParameters.CreateDefaultBuildinFileSystemParameters();
+                    initializationOperation = package.InitializeAsync(createParameters);
+                    break;
+                }
+                // ËÅîÊú∫ËøêË°åÊ®°Âºè
+                case EPlayMode.HostPlayMode:
+                {
+                    string defaultHostServer = GetHostServerURL();
+                    string fallbackHostServer = GetHostServerURL();
+                    IRemoteServices remoteServices = new RemoteServices(defaultHostServer, fallbackHostServer);
+                    HostPlayModeParameters createParameters = new();
+                    createParameters.BuildinFileSystemParameters = FileSystemParameters.CreateDefaultBuildinFileSystemParameters();
+                    createParameters.CacheFileSystemParameters = FileSystemParameters.CreateDefaultCacheFileSystemParameters(remoteServices);
+                    initializationOperation = package.InitializeAsync(createParameters);
+                    break;
+                }
+                // WebGLËøêË°åÊ®°Âºè
+                case EPlayMode.WebPlayMode:
+                {
+                    WebPlayModeParameters createParameters = new();
+                    createParameters.WebFileSystemParameters = FileSystemParameters.CreateDefaultWebFileSystemParameters();
+                    initializationOperation = package.InitializeAsync(createParameters);
+                    break;
+                }
             }
 
             await initializationOperation;
@@ -93,7 +97,7 @@ namespace FHFramework
         }
 
         /// <summary>
-        /// ‘∂∂À◊ ‘¥µÿ÷∑≤È—Ø∑˛ŒÒ¿‡
+        /// ËøúÁ´ØËµÑÊ∫êÂú∞ÂùÄÊü•ËØ¢ÊúçÂä°Á±ª
         /// </summary>
         private class RemoteServices : IRemoteServices
         {
@@ -105,10 +109,12 @@ namespace FHFramework
                 _defaultHostServer = defaultHostServer;
                 _fallbackHostServer = fallbackHostServer;
             }
+
             string IRemoteServices.GetRemoteMainURL(string fileName)
             {
                 return $"{_defaultHostServer}/{fileName}";
             }
+
             string IRemoteServices.GetRemoteFallbackURL(string fileName)
             {
                 return $"{_fallbackHostServer}/{fileName}";

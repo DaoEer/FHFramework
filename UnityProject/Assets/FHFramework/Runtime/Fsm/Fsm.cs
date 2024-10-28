@@ -1,33 +1,32 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace FHFramework
 {
     public class Fsm
     {
-        private string m_Name;
-        private Dictionary<Type, FsmState> m_States;
-        private FsmState m_CurrentState;
+        private string _name;
+        private Dictionary<Type, FsmState> _states;
+        private FsmState _currentState;
 
         public string Name
         {
             get
             {
-                return m_Name;
+                return _name;
             }
         }
         public FsmState CurrentState
         {
             get
             {
-                return m_CurrentState;
+                return _currentState;
             }
         }
 
         public void Update(float elapseSeconds, float realElapseSeconds)
         {
-            m_CurrentState?.OnUpdate();
+            _currentState?.OnUpdate();
         }
 
         public void SwitchState<T>() where T : FsmState
@@ -37,29 +36,29 @@ namespace FHFramework
 
         public void SwitchState(Type stateType)
         {
-            if (!m_States.TryGetValue(stateType, out FsmState targetState)) return;
-            if (targetState.Equals(m_CurrentState)) return;
-            m_CurrentState?.OnLeave();
+            if (!_states.TryGetValue(stateType, out FsmState targetState)) return;
+            if (targetState.Equals(_currentState)) return;
+            _currentState?.OnLeave();
             targetState.OnEnter();
-            m_CurrentState = targetState;
+            _currentState = targetState;
         }
 
         public static Fsm Create(string name, params FsmState[] states)
         {
-            return Create(name, states.ToArray());
+            return Create(name, (IEnumerable<FsmState>)states);
         }
 
         public static Fsm Create(string name, IEnumerable<FsmState> states)
         {
             Fsm fsm = new()
             {
-                m_Name = name,
-                m_States = new Dictionary<Type, FsmState>()
+                _name = name,
+                _states = new Dictionary<Type, FsmState>()
             };
 
             foreach (FsmState state in states)
             {
-                fsm.m_States.Add(state.GetType(), state);
+                fsm._states.Add(state.GetType(), state);
             }
 
             return fsm;

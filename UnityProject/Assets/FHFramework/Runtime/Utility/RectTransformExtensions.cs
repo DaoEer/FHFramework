@@ -6,7 +6,7 @@ namespace FHFramework
     {
         public static void SetStretchMode(this RectTransform rectTransform)
         {
-            // 设置为Stretch模式
+            // 璁剧疆涓篠tretch妯″紡
             rectTransform.anchorMin = Vector2.zero;
             rectTransform.anchorMax = Vector2.one;
             rectTransform.pivot = new Vector2(0.5f, 0.5f);

@@ -5,35 +5,38 @@ using UnityEngine;
 namespace FHFramework
 {
     /// <summary>
-    /// ¶ÔÏó³Ø
+    /// å¯¹è±¡æ± 
     /// </summary>
     public class ObjectPool<T> : ObjectPoolBase, IObjectPool<T> where T : PoolObjectBase
     {
-        private LinkedList<PoolObjectBase> m_PoolObjects;
-        private Dictionary<object, PoolObjectBase> m_ObjectMap;
-        private List<T> m_CachedCanReleaseObjects;
-        private float m_AutoReleaseInterval;
-        private float m_ExpireTime;
-        private float m_AutoReleaseTime;
+        private LinkedList<PoolObjectBase> _poolObjects;
+        private Dictionary<object, PoolObjectBase> _objectMap;
+        private List<T> _cachedCanReleaseObjects;
+        private float _autoReleaseInterval;
+        private float _expireTime;
+        private float _autoReleaseTime;
 
         public override Type ObjectType
         {
-            get => typeof(T);
+            get
+            {
+                return typeof(T);
+            }
         }
 
         /// <summary>
-        /// ¶ÔÏó³Ø
+        /// å¯¹è±¡æ± 
         /// </summary>
-        /// <param name="autoReleaseInterval">×Ô¶¯ÊÍ·Å¶ÔÏóµÄÊ±¼ä¼ä¸ô</param>
-        /// <param name="expireTime">¶ÔÏó¹ýÆÚÊ±¼ä</param>
+        /// <param name="autoReleaseInterval">è‡ªåŠ¨é‡Šæ”¾å¯¹è±¡çš„æ—¶é—´é—´éš”</param>
+        /// <param name="expireTime">å¯¹è±¡è¿‡æœŸæ—¶é—´</param>
         public ObjectPool(float autoReleaseInterval, float expireTime)
         {
-            m_PoolObjects = new LinkedList<PoolObjectBase>();
-            m_ObjectMap = new Dictionary<object, PoolObjectBase>();
-            m_CachedCanReleaseObjects = new List<T>();
-            m_AutoReleaseInterval = autoReleaseInterval;
-            m_ExpireTime = expireTime;
-            m_AutoReleaseTime = 0;
+            _poolObjects = new LinkedList<PoolObjectBase>();
+            _objectMap = new Dictionary<object, PoolObjectBase>();
+            _cachedCanReleaseObjects = new List<T>();
+            _autoReleaseInterval = autoReleaseInterval;
+            _expireTime = expireTime;
+            _autoReleaseTime = 0;
         }
 
         public override bool TryGetObject(object obj, out PoolObjectBase poolObject)
@@ -45,7 +48,7 @@ namespace FHFramework
                 return false;
             }
 
-            if (!m_ObjectMap.TryGetValue(obj, out poolObject))
+            if (!_objectMap.TryGetValue(obj, out poolObject))
             {
                 LogHelper.LogError("Object is not in pool.");
                 return false;
@@ -56,9 +59,9 @@ namespace FHFramework
 
         public override void Release()
         {
-            DateTime expireTime = DateTime.UtcNow.AddSeconds(-m_ExpireTime);
+            DateTime expireTime = DateTime.UtcNow.AddSeconds(-_expireTime);
             List<PoolObjectBase> expiredObjects = new List<PoolObjectBase>();
-            foreach (PoolObjectBase poolObject in m_PoolObjects)
+            foreach (PoolObjectBase poolObject in _poolObjects)
             {
                 if (poolObject.IsInUse || poolObject.IsLock) continue;
                 if (poolObject.LastUseTime > expireTime) continue;
@@ -70,20 +73,20 @@ namespace FHFramework
                 ReleaseObject(poolObject);
             }
 
-            m_AutoReleaseTime = 0;
+            _autoReleaseTime = 0;
         }
 
         public override void Update()
         {
-            m_AutoReleaseTime += Time.unscaledDeltaTime;
-            if (m_AutoReleaseTime < m_AutoReleaseInterval) return;
+            _autoReleaseTime += Time.unscaledDeltaTime;
+            if (_autoReleaseTime < _autoReleaseInterval) return;
             Release();
         }
 
         public override bool TrySpawn(out object obj)
         {
             obj = null;
-            foreach (PoolObjectBase internalObject in m_PoolObjects)
+            foreach (PoolObjectBase internalObject in _poolObjects)
             {
                 if (!internalObject.IsInUse)
                 {
@@ -116,8 +119,8 @@ namespace FHFramework
         {
             if (!TryGetObject(obj, out PoolObjectBase poolObject)) return false;
             if (poolObject.IsInUse || poolObject.IsLock) return false;
-            m_PoolObjects.Remove(poolObject);
-            m_ObjectMap.Remove(poolObject.Object);
+            _poolObjects.Remove(poolObject);
+            _objectMap.Remove(poolObject.Object);
             poolObject.Release();
             return true;
         }
@@ -132,25 +135,26 @@ namespace FHFramework
 
         public override void Shutdown()
         {
-            foreach (PoolObjectBase obj in m_PoolObjects)
+            foreach (PoolObjectBase obj in _poolObjects)
             {
                 obj.Release();
             }
-            m_PoolObjects.Clear();
-            m_ObjectMap.Clear();
+
+            _poolObjects.Clear();
+            _objectMap.Clear();
         }
 
         public void Register(T obj, bool spawned)
         {
-            if (m_ObjectMap.ContainsKey(obj.Object))
+            if (_objectMap.ContainsKey(obj.Object))
             {
                 LogHelper.LogWarning("Object is already in pool.");
                 return;
             }
 
             if (spawned) obj.Spawn();
-            m_PoolObjects.AddLast(obj);
-            m_ObjectMap.Add(obj.Object, obj);
+            _poolObjects.AddLast(obj);
+            _objectMap.Add(obj.Object, obj);
         }
 
         public bool TrySpawn(out T obj)

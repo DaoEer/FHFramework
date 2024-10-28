@@ -16,8 +16,8 @@ namespace FHFramework
         {
             await UniTask.Delay(500);
 
-            var package = YooAssets.GetPackage(GameEntry.Resource.DefaultPackageName);
-            var operation = package.RequestPackageVersionAsync();
+            ResourcePackage package = YooAssets.GetPackage(GameEntry.Resource.defaultPackageName);
+            RequestPackageVersionOperation operation = package.RequestPackageVersionAsync();
             await operation;
 
             if (operation.Status != EOperationStatus.Succeed)

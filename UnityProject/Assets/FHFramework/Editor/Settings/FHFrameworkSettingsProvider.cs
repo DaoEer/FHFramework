@@ -10,24 +10,24 @@ namespace FHFramework
         private const string SettingsPath = "Assets/Resources/" + FHFrameworkSettings.SettingsPath + ".asset";
         private const string HeaderName = "FHFramework/FHFrameworkSettings";
         private const string PropertyName = "m_GlobalSettings";
-        private SerializedObject m_Settings;
+        private SerializedObject _settings;
 
         public FHFrameworkSettingsProvider(string path, SettingsScope scopes, IEnumerable<string> keywords = null) : base(path, scopes, keywords) { }
 
         public override void OnActivate(string searchContext, VisualElement rootElement)
         {
             base.OnActivate(searchContext, rootElement);
-            m_Settings = new SerializedObject(FHFrameworkSettings.Instance);
+            _settings = new SerializedObject(FHFrameworkSettings.Instance);
         }
 
         public override void OnGUI(string searchContext)
         {
             base.OnGUI(searchContext);
             using EditorGUI.ChangeCheckScope changeCheckScope = new();
-            EditorGUILayout.PropertyField(m_Settings.FindProperty(PropertyName));
+            EditorGUILayout.PropertyField(_settings.FindProperty(PropertyName));
 
             if (!changeCheckScope.changed) return;
-            m_Settings.ApplyModifiedPropertiesWithoutUndo();
+            _settings.ApplyModifiedPropertiesWithoutUndo();
         }
 
         [SettingsProvider]

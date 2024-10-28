@@ -4,21 +4,21 @@ namespace FHFramework
 {
     public class PoolObjectBase
     {
-        private object m_Object;
+        private object _object;
 
         /// <summary>
-        /// »ñÈ¡¶ÔÏó
+        /// è·å–å¯¹è±¡
         /// </summary>
         public virtual object Object
         {
             get
             {
-                return m_Object;
+                return _object;
             }
         }
 
         /// <summary>
-        /// »ñÈ¡¶ÔÏóÊÇ·ñÕıÔÚÊ¹ÓÃ
+        /// è·å–å¯¹è±¡æ˜¯å¦æ­£åœ¨ä½¿ç”¨
         /// </summary>
         public bool IsInUse
         {
@@ -27,7 +27,7 @@ namespace FHFramework
         }
 
         /// <summary>
-        /// ÊÇ·ñËø¶¨¶ÔÏó²»±»ÊÍ·Å
+        /// æ˜¯å¦é”å®šå¯¹è±¡ä¸è¢«é‡Šæ”¾
         /// </summary>
         public bool IsLock
         {
@@ -36,7 +36,7 @@ namespace FHFramework
         }
 
         /// <summary>
-        /// ¶ÔÏóÉÏ´ÎÊ¹ÓÃµÄÊ±¼ä
+        /// å¯¹è±¡ä¸Šæ¬¡ä½¿ç”¨çš„æ—¶é—´
         /// </summary>
         public DateTime LastUseTime
         {
@@ -46,20 +46,20 @@ namespace FHFramework
 
         public PoolObjectBase()
         {
-            m_Object = null;
+            _object = null;
         }
 
         /// <summary>
-        /// ³õÊ¼»¯¶ÔÏó
+        /// åˆå§‹åŒ–å¯¹è±¡
         /// </summary>
         /// <param name="obj"></param>
         public void Initialize(object obj)
         {
-            m_Object = obj;
+            _object = obj;
         }
 
         /// <summary>
-        /// »ñÈ¡¶ÔÏó
+        /// è·å–å¯¹è±¡
         /// </summary>
         public void Spawn()
         {
@@ -68,7 +68,7 @@ namespace FHFramework
         }
 
         /// <summary>
-        /// »ØÊÕ¶ÔÏó
+        /// å›æ”¶å¯¹è±¡
         /// </summary>
         public void Unspawn()
         {
@@ -78,16 +78,16 @@ namespace FHFramework
         }
 
         /// <summary>
-        /// ÊÍ·Å¶ÔÏó
+        /// é‡Šæ”¾å¯¹è±¡
         /// </summary>
         public void Release()
         {
             OnRelease();
-            m_Object = null;
+            _object = null;
         }
 
         /// <summary>
-        /// »ñÈ¡¶ÔÏóÊ±µÄÊÂ¼ş¡£
+        /// è·å–å¯¹è±¡æ—¶çš„äº‹ä»¶ã€‚
         /// </summary>
         protected virtual void OnSpawn()
         {
@@ -95,7 +95,7 @@ namespace FHFramework
         }
 
         /// <summary>
-        /// »ØÊÕ¶ÔÏóÊ±µÄÊÂ¼ş¡£
+        /// å›æ”¶å¯¹è±¡æ—¶çš„äº‹ä»¶ã€‚
         /// </summary>
         protected virtual void OnUnspawn()
         {
@@ -103,7 +103,7 @@ namespace FHFramework
         }
 
         /// <summary>
-        /// ÊÍ·Å¶ÔÏóÊ±µÄÊÂ¼ş
+        /// é‡Šæ”¾å¯¹è±¡æ—¶çš„äº‹ä»¶
         /// </summary>
         protected virtual void OnRelease()
         {
