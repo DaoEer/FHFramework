@@ -1,25 +1,16 @@
-using System;
-using UnityEngine;
-
 namespace FHFramework
 {
-    public class PanelBase : IPanel
+    public class PanelBase : PoolObjectBase, IPanel
     {
-        private GameObject _panelInstance;
         private PanelLogicBase _panelLogic;
 
-        public GameObject Root
+        protected override void OnSpawn()
         {
-            get
-            {
-                return _panelInstance;
-            }
+            
         }
 
-        public void Init(GameObject panelInstance, Type logicType)
+        public void Init()
         {
-            _panelInstance = panelInstance;
-            _panelLogic = Activator.CreateInstance(logicType) as PanelLogicBase;
             _panelLogic!.OnInit(this);
         }
 

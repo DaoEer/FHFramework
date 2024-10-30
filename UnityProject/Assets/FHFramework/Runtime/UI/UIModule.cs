@@ -11,6 +11,7 @@ namespace FHFramework
         [SerializeField]
         private List<PanelGroup> groups;
         
+        private IObjectPool<PanelPoolObject> _pool;
         private Dictionary<string, PanelGroup> _groupDictionary;
 
         protected override void Awake()
@@ -18,6 +19,8 @@ namespace FHFramework
             base.Awake();
 
             _groupDictionary = new Dictionary<string, PanelGroup>();
+            _pool = GameEntry.Pool.GetObjectPool<PanelPoolObject>();
+            root.gameObject.layer = LayerMask.NameToLayer("UI");
             foreach (PanelGroup panelGroup in groups)
             {
                 Transform groupRoot = new GameObject(panelGroup.GroupID, typeof(Canvas)).transform;
@@ -35,23 +38,17 @@ namespace FHFramework
 
         public void OpenPanelSync(Type panelType)
         {
-            IPanel panel = CreatePanel(panelType);
-            PanelAttribute panelAttribute = Attribute.GetCustomAttribute(panelType, typeof(PanelAttribute)) as PanelAttribute;
-            GameObject panelInstance = GameEntry.Resource.LoadAssetSync<GameObject>(panelAttribute!.Path);
-            panel.Init(panelInstance, panelAttribute!.Logic);
-        }
+            PanelAttribute attribute = Attribute.GetCustomAttribute(panelType, typeof(PanelAttribute)) as PanelAttribute;
+            if (attribute == null)
+            {
+                Debug.LogError(panelType + " is not a Panel");
+                return;
+            }
 
-        public void OpenPanelAsync<T>() where T : PanelBase
-        {
-            OpenPanelAsync(typeof(T));
-        }
-
-        public async void OpenPanelAsync(Type panelType)
-        {
-            IPanel panel = CreatePanel(panelType);
-            PanelAttribute panelAttribute = Attribute.GetCustomAttribute(panelType, typeof(PanelAttribute)) as PanelAttribute;
-            GameObject panelInstance = await GameEntry.Resource.LoadAssetAsync<GameObject>(panelAttribute!.Path);
-            panel.Init(panelInstance, panelAttribute!.Logic);
+            if (!_pool.TrySpawn(out PanelPoolObject panelObject))
+            {
+                CreatePanel(panelType);
+            }
         }
 
         public void ClosePanel<T>()
@@ -64,10 +61,20 @@ namespace FHFramework
 
         }
 
-        private IPanel CreatePanel(Type panelType)
+        public IPanel CreatePanel(Type panelType)
         {
-            PanelBase panel = Activator.CreateInstance(panelType) as PanelBase;
-            return panel;
+            return Activator.CreateInstance(panelType) as IPanel;
+        }
+
+        public GameObject InstantiatePanel(string path)
+        {
+            GameObject panelInstance = GameEntry.Resource.LoadAssetSync<GameObject>(path);
+            if (panelInstance == null)
+            {
+                Debug.LogError("UI资源地址无效");
+            }
+
+            return panelInstance;
         }
     }
 }
