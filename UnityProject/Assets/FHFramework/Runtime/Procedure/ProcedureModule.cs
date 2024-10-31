@@ -37,14 +37,15 @@ namespace FHFramework
                 new DownloadPackageFilesProcedure(),
                 new DownloadPackageOverProcedure(),
                 new ClearPackageCacheProcedure(),
-                new UpdaterDoneProcedure()
+                new UpdaterDoneProcedure(),
+                new TestProcedure()
             };
         }
 
         private void Start()
         {
             _procedureFsm = GameEntry.Fsm.Create("GameProcedure", _procedures);
-            _procedureFsm.SwitchState<InitPackageProcedure>();
+            _procedureFsm.SwitchState<TestProcedure>();
         }
     }
 }

@@ -23,8 +23,6 @@ namespace FHFramework
         /// <summary>
         /// 对象池轮询
         /// </summary>
-        /// <param name="deltaTime">Time.deltaTime</param>
-        /// <param name="realDeltaTime">Time.unscaledDeltaTime</param>
         public abstract void Update();
 
         /// <summary>
@@ -58,14 +56,14 @@ namespace FHFramework
         /// <summary>
         /// 释放对象。
         /// </summary>
-        /// <param name="target">要释放的对象。</param>
+        /// <param name="obj"></param>
         /// <returns>释放对象是否成功。</returns>
         public abstract bool ReleaseObject(object obj);
 
         /// <summary>
         /// 设置对象是否被加锁。
         /// </summary>
-        /// <param name="target">要设置被加锁的对象。</param>
+        /// <param name="obj"></param>
         /// <param name="locked">是否被加锁。</param>
         public abstract void SetLocked(object obj, bool locked);
 

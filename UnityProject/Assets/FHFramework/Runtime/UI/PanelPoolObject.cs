@@ -1,7 +1,13 @@
 namespace FHFramework
 {
-    public class PanelPoolObject : PoolObjectBase
+    public class PanelPoolObject<T> : PoolObjectBase where T : PanelBase
     {
-        private PanelBase _panel;
+        public T Panel { get; private set; }
+
+        public void Initialize(T panel)
+        {
+            Panel = panel;
+            base.Initialize(Panel);
+        }
     }
 }

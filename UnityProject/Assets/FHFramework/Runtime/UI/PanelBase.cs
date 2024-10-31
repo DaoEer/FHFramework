@@ -1,22 +1,22 @@
+using UnityEngine;
+
 namespace FHFramework
 {
-    public class PanelBase : PoolObjectBase, IPanel
+    public class PanelBase
     {
+        private GameObject _panel;
         private PanelLogicBase _panelLogic;
 
-        protected override void OnSpawn()
+        public void Init(GameObject panelInstance, PanelLogicBase panelLogic)
         {
-            
-        }
-
-        public void Init()
-        {
+            _panel = panelInstance;
+            _panelLogic = panelLogic;
             _panelLogic!.OnInit(this);
         }
 
         public void Open()
         {
-            
+            _panelLogic.OnOpen();
         }
 
         public void Update()

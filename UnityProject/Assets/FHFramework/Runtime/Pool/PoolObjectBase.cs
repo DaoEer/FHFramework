@@ -44,11 +44,6 @@ namespace FHFramework
             set;
         }
 
-        public PoolObjectBase()
-        {
-            _object = null;
-        }
-
         /// <summary>
         /// 初始化对象
         /// </summary>

@@ -17,7 +17,7 @@ namespace FHFramework
             private set;
         }
 
-        public PanelAttribute(string location, Type logicType)
+        public PanelAttribute(string location, Type logicType = null)
         {
             Path = location;
             Logic = logicType;

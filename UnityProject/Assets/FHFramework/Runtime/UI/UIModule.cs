@@ -6,12 +6,9 @@ namespace FHFramework
 {
     public partial class UIModule : FHFrameworkModule
     {
-        [SerializeField]
-        private Transform root;
-        [SerializeField]
-        private List<PanelGroup> groups;
-        
-        private IObjectPool<PanelPoolObject> _pool;
+        [SerializeField] private Transform root;
+        [SerializeField] private List<PanelGroup> groups;
+
         private Dictionary<string, PanelGroup> _groupDictionary;
 
         protected override void Awake()
@@ -19,7 +16,6 @@ namespace FHFramework
             base.Awake();
 
             _groupDictionary = new Dictionary<string, PanelGroup>();
-            _pool = GameEntry.Pool.GetObjectPool<PanelPoolObject>();
             root.gameObject.layer = LayerMask.NameToLayer("UI");
             foreach (PanelGroup panelGroup in groups)
             {
@@ -31,50 +27,39 @@ namespace FHFramework
             }
         }
 
-        public void OpenPanelSync<T>() where T : PanelBase
+        public void OpenPanel<T>() where T : PanelBase, new()
         {
-            OpenPanelSync(typeof(T));
-        }
-
-        public void OpenPanelSync(Type panelType)
-        {
+            Type panelType = typeof(T);
             PanelAttribute attribute = Attribute.GetCustomAttribute(panelType, typeof(PanelAttribute)) as PanelAttribute;
             if (attribute == null)
             {
-                Debug.LogError(panelType + " is not a Panel");
+                LogHelper.LogError($"无效的面板：{panelType}");
                 return;
             }
 
-            if (!_pool.TrySpawn(out PanelPoolObject panelObject))
+            IObjectPool<PanelPoolObject<T>> pool = GameEntry.Pool.GetObjectPool<PanelPoolObject<T>>();
+            if (!pool.TrySpawn(out PanelPoolObject<T> panelPoolObject))
             {
-                CreatePanel(panelType);
+                T panel = new T();
+                panelPoolObject = new PanelPoolObject<T>();
+                panelPoolObject.Initialize(panel);
+                pool.Register(panelPoolObject, true);
             }
+
+            InitPanel(panelPoolObject.Panel, attribute.Path, attribute.Logic);
         }
 
-        public void ClosePanel<T>()
+        private async void InitPanel(PanelBase panel, string assetPath, Type logicType)
         {
-            ClosePanel(typeof(T));
-        }
-
-        public void ClosePanel(Type panelType)
-        {
-
-        }
-
-        public IPanel CreatePanel(Type panelType)
-        {
-            return Activator.CreateInstance(panelType) as IPanel;
-        }
-
-        public GameObject InstantiatePanel(string path)
-        {
-            GameObject panelInstance = GameEntry.Resource.LoadAssetSync<GameObject>(path);
+            GameObject panelInstance = await GameEntry.Resource.LoadAssetAsync<GameObject>(assetPath);
             if (panelInstance == null)
             {
-                Debug.LogError("UI资源地址无效");
+                LogHelper.LogError($"UI资源地址无效：{assetPath}");
             }
 
-            return panelInstance;
+            PanelLogicBase panelLogic = Activator.CreateInstance(logicType) as PanelLogicBase;
+            panel.Init(panelInstance, panelLogic);
+            panel.Open();
         }
     }
 }
