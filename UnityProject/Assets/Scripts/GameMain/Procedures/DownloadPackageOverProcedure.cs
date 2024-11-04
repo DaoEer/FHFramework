@@ -1,4 +1,6 @@
-namespace FHFramework
+using FHFramework;
+
+namespace GameMain
 {
     public class DownloadPackageOverProcedure : Procedure
     {

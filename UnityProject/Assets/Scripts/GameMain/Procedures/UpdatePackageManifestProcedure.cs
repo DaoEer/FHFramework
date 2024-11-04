@@ -1,7 +1,8 @@
 using Cysharp.Threading.Tasks;
+using FHFramework;
 using YooAsset;
 
-namespace FHFramework
+namespace GameMain
 {
     public class UpdatePackageManifestProcedure : Procedure
     {

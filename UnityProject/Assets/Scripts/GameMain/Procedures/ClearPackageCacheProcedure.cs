@@ -1,6 +1,7 @@
+using FHFramework;
 using YooAsset;
 
-namespace FHFramework
+namespace GameMain
 {
     public class ClearPackageCacheProcedure : Procedure
     {
