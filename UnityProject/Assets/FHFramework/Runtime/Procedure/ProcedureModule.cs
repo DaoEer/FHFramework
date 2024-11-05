@@ -24,28 +24,9 @@ namespace FHFramework
             }
         }
 
-        protected override void Awake()
-        {
-            base.Awake();
-
-            _procedures = new List<Procedure>
-            {
-                new InitPackageProcedure(),
-                new UpdateVersionProcedure(),
-                new UpdatePackageManifestProcedure(),
-                new CreatePackageDownloaderProcedure(),
-                new DownloadPackageFilesProcedure(),
-                new DownloadPackageOverProcedure(),
-                new ClearPackageCacheProcedure(),
-                new UpdaterDoneProcedure(),
-                new TestProcedure()
-            };
-        }
-
         private void Start()
         {
             _procedureFsm = GameEntry.Fsm.Create("GameProcedure", _procedures);
-            _procedureFsm.SwitchState<TestProcedure>();
         }
     }
 }

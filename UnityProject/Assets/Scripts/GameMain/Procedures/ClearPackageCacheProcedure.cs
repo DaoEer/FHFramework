@@ -1,5 +1,4 @@
 using FHFramework;
-using YooAsset;
 
 namespace GameMain
 {
@@ -9,9 +8,9 @@ namespace GameMain
         {
             base.OnEnter();
 
-            ResourcePackage package = YooAssets.GetPackage(GameEntry.Resource.defaultPackageName);
-            ClearUnusedBundleFilesOperation operation = package.ClearUnusedBundleFilesAsync();
-            operation.Completed += operationBase => GameEntry.Procedure.ProcedureFsm.SwitchState<UpdaterDoneProcedure>();
+            // ResourcePackage package = YooAssets.GetPackage(GameEntry.Resource.defaultPackageName);
+            // ClearUnusedBundleFilesOperation operation = package.ClearUnusedBundleFilesAsync();
+            // operation.Completed += operationBase => GameEntry.Procedure.ProcedureFsm.SwitchState<UpdaterDoneProcedure>();
         }
     }
 }
