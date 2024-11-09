@@ -9,10 +9,31 @@ namespace FHFramework
     /// </summary>
     public partial class ResourceModule : FHFrameworkModule
     {
-        public EPlayMode playMode = EPlayMode.EditorSimulateMode;
+        private EPlayMode _playMode = EPlayMode.EditorSimulateMode;
+        private string _packageName;
+        private string _packageVersion;
 
-        public string PackageVersion { get; set; }
-        public ResourceDownloaderOperation Downloader { get; set; }
+        public EPlayMode PlayMode
+        {
+            get
+            {
+                return _playMode;
+            }
+        }
+        public string PackageName
+        {
+            get
+            {
+                return _packageName;
+            }
+        }
+        public string PackageVersion
+        {
+            get
+            {
+                return _packageVersion;
+            }
+        }
 
         protected override void Awake()
         {
@@ -25,7 +46,7 @@ namespace FHFramework
             package ??= YooAssets.CreatePackage(packageName);
 
             InitializationOperation initializationOperation = null;
-            switch (GameEntry.Resource.playMode)
+            switch (_playMode)
             {
                 case EPlayMode.EditorSimulateMode:
                     {

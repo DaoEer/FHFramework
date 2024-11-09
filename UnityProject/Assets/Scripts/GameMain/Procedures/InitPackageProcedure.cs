@@ -1,4 +1,3 @@
-using Cysharp.Threading.Tasks;
 using FHFramework;
 using YooAsset;
 
@@ -13,26 +12,22 @@ namespace GameMain
             InitializationOperation initializationOperation = await GameEntry.Resource.InitPackage("Default");
             if (initializationOperation?.Status == EOperationStatus.Succeed)
             {
-                switch (GameEntry.Resource.playMode)
+                switch (GameEntry.Resource.PlayMode)
                 {
                     case EPlayMode.EditorSimulateMode:
                         {
-
+                            GameEntry.Procedure.ProcedureFsm.SwitchState<TestProcedure>();
                             break;
                         }
                     case EPlayMode.OfflinePlayMode:
                         {
-
+                            GameEntry.Procedure.ProcedureFsm.SwitchState<TestProcedure>();
                             break;
                         }
                     case EPlayMode.HostPlayMode:
-                        {
-
-                            break;
-                        }
                     case EPlayMode.WebPlayMode:
                         {
-
+                            GameEntry.Procedure.ProcedureFsm.SwitchState<UpdateVersionProcedure>();
                             break;
                         }
                 }
