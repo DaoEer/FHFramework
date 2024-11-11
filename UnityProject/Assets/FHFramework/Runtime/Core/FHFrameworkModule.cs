@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace FHFramework
 {
+    [DisallowMultipleComponent]
     public abstract class FHFrameworkModule : MonoBehaviour
     {
         public virtual int Priority => 0;

@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using UnityEditor;
+using UnityEngine;
 using YooAsset;
 
 namespace FHFramework
@@ -9,7 +10,7 @@ namespace FHFramework
     /// </summary>
     public partial class ResourceModule : FHFrameworkModule
     {
-        private EPlayMode _playMode = EPlayMode.EditorSimulateMode;
+        [SerializeField] private EPlayMode _playMode = EPlayMode.EditorSimulateMode;
         private string _packageName;
         private string _packageVersion;
 
