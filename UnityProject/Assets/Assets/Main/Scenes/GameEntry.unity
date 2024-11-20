@@ -330,8 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bd4a2557ab64174294280d580ad6f47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultPackageName: DefaultPackage
-  playMode: 0
+  _playMode: 0
 --- !u!1 &1186110500
 GameObject:
   m_ObjectHideFlags: 0
