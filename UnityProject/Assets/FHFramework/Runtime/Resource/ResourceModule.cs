@@ -5,12 +5,9 @@ using YooAsset;
 
 namespace FHFramework
 {
-    /// <summary>
-    /// 资源模块
-    /// </summary>
     public partial class ResourceModule : FHFrameworkModule
     {
-        [SerializeField] private EPlayMode _playMode = EPlayMode.EditorSimulateMode;
+        private EPlayMode _playMode = EPlayMode.EditorSimulateMode;
         private string _packageName;
         private string _packageVersion;
 
